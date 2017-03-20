@@ -1,0 +1,29 @@
+{
+  "name": "appleitura",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mathias54/Rest_AppLeitura.git"
+  },
+  "keywords": [
+    "Rest",
+    "App",
+    "IFRS"
+  ],
+  "author": "Adriel | Gagriel | Mathias | Morgana",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mathias54/Rest_AppLeitura/issues"
+  },
+  "homepage": "https://github.com/Mathias54/Rest_AppLeitura#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "mongodb": "^2.2.25"
+  }
+}
