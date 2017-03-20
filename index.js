@@ -30,8 +30,18 @@ app.get('/livro/:id', function (req, res) {
     });
 });
 
-app.put('/livro/:id', function (req, res) {
-    var id = req.params.id;
+app.get('/livros', function (req, res) {
+    var id = new objectId(req.params.id);
+
+    mongoClient.connect('mongodb://localhost:27017/app_livros', function (erro, db) {
+        if(erro)
+            res.status(500).send('ocorreu um erro de conexão: ' + erro);
+        else{
+            db.collection('livro').find({}).toArray(function(err, docs) {
+                res.status(201).json(docs);
+            });
+        }
+    });
 });
 
 app.delete('/livro/:id', function (req, res) {
