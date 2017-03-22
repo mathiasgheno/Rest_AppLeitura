@@ -21,13 +21,17 @@ app.use(bodyParser.json());
 app.get('/livro/:id', function (req, res) {
     var id = new objectId(req.params.id);
 
-    mongoClient.connect('mongodb://localhost:27017/app_livros', function (erro, db) {
-        if(erro)
-            res.status(500).send('ocorreu um erro de conexão: ' + erro);
+    mongoClient.connect('mongodb://localhost:27017/app_livros', function (err, db) {
+        if(err){
+            res.status(500).send('ocorreu um erro de conexão: ' + err);
+            winston.error('ocorreu um erro de conexão', {erro: err});
+        }
         else{
             db.collection('livro').findOne({'_id':id}, function (err, resultado) {
-               if(erro)
-                   res.status(500).send('erro de busca' + erro);
+               if(err){
+                   winston.error('ocorreu um erro de busca', {erro: err});
+                   res.status(500).send('erro de busca' + err);
+               }
                if(resultado == null)
                    res.status(500).send('Erro de busca, nenhum dado encontrado.');
                else{
@@ -42,11 +46,17 @@ app.get('/livro/:id', function (req, res) {
 app.get('/livros', function (req, res) {
     var id = new objectId(req.params.id);
 
-    mongoClient.connect('mongodb://localhost:27017/app_livros', function (erro, db) {
-        if(erro)
-            res.status(500).send('ocorreu um erro de conexão: ' + erro);
+    mongoClient.connect('mongodb://localhost:27017/app_livros', function (err, db) {
+        if(err){
+            res.status(500).send('ocorreu um erro de conexão: ' + err);
+            winston.error('ocorreu um erro de conexão', {erro: err});
+        }
         else{
             db.collection('livro').find({}).toArray(function(err, docs) {
+                if(err){
+                    winston.error('ocorreu um erro de busca', {erro: err});
+                    res.status(500).send('erro de busca' + err);
+                }
                 res.status(201).json(docs);
             });
         }
@@ -56,13 +66,17 @@ app.get('/livros', function (req, res) {
 app.delete('/livro/:id', function (req, res) {
     var id = new objectId(req.params.id);
 
-    mongoClient.connect('mongodb://localhost:27017/app_livros', function (erro, db) {
-        if(erro)
-            res.status(500).send('ocorreu um erro de conexão: ' + erro);
+    mongoClient.connect('mongodb://localhost:27017/app_livros', function (err, db) {
+        if(err){
+            res.status(500).send('ocorreu um erro de conexão: ' + err);
+            winston.error('ocorreu um erro de conexão', {erro: err});
+        }
         else{
             db.collection('livro').deleteOne({'_id':id}, function (err, resultado) {
-                if(erro)
-                    res.status(500).send('erro de busca' + erro);
+                if(err){
+                    winston.error('ocorreu um erro de busca', {erro: err});
+                    res.status(500).send('erro de busca' + err);
+                }
                 if(resultado == null)
                     res.status(500).send('Erro de exclusao, seu dado nao foi encontrado.');
                 else{
@@ -73,8 +87,8 @@ app.delete('/livro/:id', function (req, res) {
     });
 });
 
-app.post('/livro/:id', function (req, res) {
-    var id = req.params.id;
+app.post('/livro', function (req, res) {
+
 
     var meuLivro = {
         'nome':'centauro no jardim',
@@ -82,13 +96,17 @@ app.post('/livro/:id', function (req, res) {
         'obrigatoria':'ufrgs'
     };
 
-    mongoClient.connect('mongodb://localhost:27017/app_livros', function (erro, db) {
-        if(erro)
-            console.log('Ocorreu um erro de conexão')
+    mongoClient.connect('mongodb://localhost:27017/app_livros', function (err, db) {
+        if(err){
+            res.status(500).send('ocorreu um erro de conexão: ' + err);
+            winston.error('ocorreu um erro de conexão', {erro: err});
+        }
         else{
-            db.collection('livro').insertOne(meuLivro, function (erro) {
-                if(erro)
-                    res.send('Ocorreu um erro de conexão: ' + erro);
+            db.collection('livro').insertOne(meuLivro, function (err) {
+                if(err){
+                    winston.error('ocorreu um erro de insercao', {erro: err});
+                    res.status(500).send('erro de busca' + err);
+                }
                 else{
 
                     var response = {
@@ -106,6 +124,7 @@ app.post('/livro/:id', function (req, res) {
                             }
                         ]
                     };
+
                     res.status(201).json(response);
                 }
             });
