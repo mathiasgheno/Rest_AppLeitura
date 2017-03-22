@@ -5,6 +5,15 @@ var app = require('express')();
 var bodyParser = require('body-parser');
 var mongoClient = require('mongodb').MongoClient;
 var objectId = require('mongodb').ObjectID;
+var winston = require('winston');
+
+var logger = new (winston.Logger)({
+    transports: [
+        new (winston.transports.File)({ filename: 'somefile.log' })
+    ]
+});
+
+logger.warn('primeiro teste com o winston');
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
@@ -105,6 +114,7 @@ app.post('/livro/:id', function (req, res) {
 
 });
 
-app.listen(7001, function () {
-    console.log('servidor rodando');
+app.listen(7002, function () {
+    console.log('servidor rodando na porta 7002');
 });
+
