@@ -20,6 +20,7 @@ app.use(bodyParser.json());
 
 // Livros
 
+//Pegar um livro pelo ID
 app.get('/livro/:id', function (req, res) {
     var id = new objectId(req.params.id);
 
@@ -45,6 +46,7 @@ app.get('/livro/:id', function (req, res) {
     });
 });
 
+// Pegar todos os livros
 app.get('/livros', function (req, res) {
     var id = new objectId(req.params.id);
 
@@ -65,6 +67,7 @@ app.get('/livros', function (req, res) {
     });
 });
 
+// Deletar um arquivo pelo ID
 app.delete('/livro/:id', function (req, res) {
     var id = new objectId(req.params.id);
 
@@ -89,6 +92,7 @@ app.delete('/livro/:id', function (req, res) {
     });
 });
 
+// Adicionar um livro no banco
 app.post('/livro', function (req, res) {
 
     var meuLivro = {
@@ -136,6 +140,7 @@ app.post('/livro', function (req, res) {
 
 //Questões
 
+// Adicionar uma questao no banco
 app.post('/questao',function (req, res) {
    // res.send('está funcionando');
 
@@ -186,6 +191,7 @@ app.post('/questao',function (req, res) {
     });
 });
 
+//Pegar todos as questões
 app.get('/questoes', function (req, res) {
    mongoClient.connect('mongodb://localhost:27017/app_livros', function (err, db) {
        if(err){
@@ -203,6 +209,7 @@ app.get('/questoes', function (req, res) {
    });
 });
 
+//Pegar uma questão por ID
 app.get('/questao/:id', function (req, res){
     var id = new objectId(req.params.id);
 
@@ -228,6 +235,7 @@ app.get('/questao/:id', function (req, res){
     });
 });
 
+// Deletar um questão por ID
 app.delete('/questao/:id', function (req, res) {
     var id = new objectId(req.params.id);
 
@@ -250,6 +258,11 @@ app.delete('/questao/:id', function (req, res) {
             });
         }
     });
+});
+
+//
+app.post('/meupost', function (req, res) {
+    res.status(201).send('Opaaa, vamos que vamos');
 });
 
 app.listen(7001, function () {
