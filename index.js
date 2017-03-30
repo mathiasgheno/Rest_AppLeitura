@@ -13,10 +13,16 @@ var logger = new (winston.Logger)({
     ]
 });
 
-logger.warn('primeiro teste com o winston');
+var dadosLog ={
+    data: new Date(),
+    computer: require('os').hostname()
+};
+
+logger.warn('Servidor Inicializado', dadosLog);
 
 app.use(bodyParser.urlencoded({extended:true}));
-app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded());
+//app.use(bodyParser.json());
 
 // Livros
 
@@ -262,9 +268,22 @@ app.delete('/questao/:id', function (req, res) {
 
 //
 app.post('/meupost', function (req, res) {
-    res.status(201).send('Opaaa, vamos que vamos');
+    var valor = req.body['nome'];
+    //console.log('objeto: ' + JSON.stringify(valor, 4));
+    console.log('nome ' + valor);
+    //res.status(201).send('Opaaa, vamos que vamos: ' + 'oiiii');
+    res.send('funcionou');
 });
 
 app.listen(7001, function () {
     console.log('servidor rodando na porta 7001');
 });
+
+/*
+
+ curl http://localhost:7001/meupost -X POST -v -H "Content-type: application/json" -d '{"nome":"mathias"}'; echo
+
+ curl http://localhost:5001/pagamentos/pagamento -X POST -v -H "Content-type: application/json" -d @arquivo.json; echo
+
+
+ */
