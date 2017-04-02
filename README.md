@@ -8,7 +8,9 @@ Para rodar esse código é necessário:
 2. mongod rodando
 3. criar banco app_livros no mongodb
 
-> npm install,
+> npm install
+
+
 > node index.js
 
 Para testar os verbos utilize: postman. 
