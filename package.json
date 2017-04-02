@@ -23,7 +23,9 @@
   "homepage": "https://github.com/Mathias54/Rest_AppLeitura#readme",
   "dependencies": {
     "body-parser": "^1.17.1",
+    "ejs": "^2.5.6",
     "express": "^4.15.2",
+    "express-busboy-custom": "^3.0.1",
     "mongodb": "^2.2.25",
     "winston": "^2.3.1"
   }

@@ -6,6 +6,9 @@ var bodyParser = require('body-parser');
 var mongoClient = require('mongodb').MongoClient;
 var objectId = require('mongodb').ObjectID;
 var winston = require('winston');
+var bb = require('express-busboy-custom');
+var fs = require('fs');
+var ejs = require('ejs');
 
 var logger = new (winston.Logger)({
     transports: [
@@ -20,8 +23,17 @@ var dadosLog ={
 
 logger.warn('Servidor Inicializado', dadosLog);
 
+bb.extend(app, {
+    upload: true,
+        path: '/uploads',
+        allowedPath: /./
+});
+
 app.use(bodyParser.urlencoded({extended:true}));
-//app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded());
+
+app.set('view engine', 'ejs');
+
 //app.use(bodyParser.json());
 
 // Livros
@@ -266,13 +278,28 @@ app.delete('/questao/:id', function (req, res) {
     });
 });
 
-//
+// testizinho
 app.post('/meupost', function (req, res) {
-    var valor = req.body['nome'];
-    //console.log('objeto: ' + JSON.stringify(valor, 4));
-    console.log('nome ' + valor);
+    var valor = req.body.nome;
+    var arquivo = req.file;
+    console.log('objeto: ' + JSON.stringify(valor, 4));
+    console.log('arquivos: ' + JSON.stringify(arquivo,null, 4));
+
+    // fs.readFile(req.files.displayImage.path, function (err, data) {
+    //     // ...
+    //     var newPath = __dirname + "/uploads/uploadedFileName";
+    //     fs.writeFile(newPath, data, function (err) {
+    //         res.redirect("back");
+    //     });
+    // });
+
+    //console.log('nome ' + valor);
     //res.status(201).send('Opaaa, vamos que vamos: ' + 'oiiii');
-    res.send('funcionou');
+    res.send('funcionou o/');
+});
+
+app.get('/', function (req, res) {
+   res.render('../views/home.ejs');
 });
 
 app.listen(7001, function () {
