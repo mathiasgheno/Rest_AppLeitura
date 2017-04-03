@@ -30,11 +30,11 @@ bb.extend(app, {
 });
 
 app.use(bodyParser.urlencoded({extended:true}));
-app.use(bodyParser.urlencoded());
+//app.use(bodyParser.urlencoded());
 
 app.set('view engine', 'ejs');
 
-//app.use(bodyParser.json());
+app.use(bodyParser.json());
 
 // Livros
 
@@ -298,6 +298,13 @@ app.post('/meupost', function (req, res) {
     res.send('funcionou o/');
 });
 
+// testizinho GET
+app.get('/meuget/:livro/:universidade', function (req, res) {
+   var livro = req.params.livro;
+   var universidade = req.params.universidade;
+
+   res.send('livro: ' + livro + " Universidade " + universidade);
+});
 app.get('/', function (req, res) {
    res.render('../views/home.ejs');
 });

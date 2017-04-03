@@ -1,0 +1,16 @@
+[
+  {
+    "titulo":"A Hora Da Estrela",
+    "autor":"Clarise Lispector",
+    "imagem":"http://i.imgur.com/nsVolbb.jpg",
+    "descricao":"A Hora da Estrela é um romance literário da escritora brasileira Clarice Lispector. O romance narra a histária da datilágrafa alagoana Macabéa, que migra para o Rio de Janeiro, tendo sua rotina narrada por um escritor fictício chamado Rodrigo S.M. É talvez o seu romance mais famoso, sendo adaptado para o cinema por Suzana Amaral em 1985.",
+    "ano":1997
+  },
+  {
+    "titulo":"O Centauro no Jardim",
+    "autor": "Moacyr Scliar",
+    "descricao":"No interior do Rio Grande do Sul, na pacata família Tartakovsky, nasce um centauro: um ser metade homem, metade cavalo. Seu nome é Guedali, quarto filho de um casal de imigrantes judeus russos. A partir desse evento fantástico, Moacyr Scliar constrói um romance que se situa entre a fábula e o realismo, evidenciando a dualidade da vida em sociedade, em que é preciso harmonizar individualismo e coletividade.",
+    "imagem":"http://i.imgur.com/GcNhDcL.jpg",
+    "ano":1980
+  }
+]

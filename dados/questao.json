@@ -1,0 +1,41 @@
+[
+	{
+		"questao":"Sobre o narrador de A hora da estrela, de Clarice Lispector, pode-se afirmar que:",
+		"alternativas":[
+			"é do tipo observador, pois revela não ter conhecimento sobre o que se passa no universo sentimental e psíquico da personagem (Macabía).",
+			"é onisciente, pois assume o papel de criador de uma vida, sobre a qual detêm todas as informações; o poder da onisciência é, para ele, fonte de satisfação, pois Rodrigo S. percebe que os fatos dependem de seu arbítrio.",
+			"é do tipo observador, pois limita-se a descrever superficialmente as emoções de Macabía, o que fica evidente nas ocorrências enigmáticas do termo \"explosão\", apresentado sempre entre parênteses.",
+			"constitui-se como um personagem, pois narra em primeira pessoa; não há, entretanto, referências é sua história pessoal, visto que seu objetivo é falar sobre um personagem de ficção (Macabía).",
+			"é um dos personagens do livro; entretanto, ao apresentar-se não só como narrador, mas também como criador da história, problematiza a essência da literatura de ficção, que reside na recriação arbitrária do real."
+		],
+		"resposta":"é um dos personagens do livro; entretanto, ao apresentar-se não só como narrador, mas também como criador da história, problematiza a essência da literatura de ficção, que reside na recriação arbitrária do real.",
+		"universidade":"fuvest",
+		"livro":"A Hora Da Estrela"
+	},
+	{
+		"questao":"Identifique a afirmação correta sobre A hora da estrela, de Clarice Lispector:",
+		"alternativas":[
+			"A força da temática social, centrada na miséria brasileira, afasta do livro as preocupações com a linguagem, freqüentes em outros escritores da mesma geração.",
+			"Se o discurso do narrador critica principalmente a própria literatura, as falas de Macabéa exprimem sobretudo as críticas da personagem às injustiças sociais.",
+			"O narrador retarda bastante o início da narração da história de Macabéa, vinculando esse adiamento a um autoquestionamento radical.",
+			"Os sofrimentos da migrante nordestina são realçados, no livro, pelo contraste entre suas desventuras na cidade grande e suas lembranças de uma infância pobre, mas vivida no aconchego familiar.",
+			"O estilo do livro é caracterizado, principalmente, pela oposição de duas variedades lingüísticas: linguagem culta, literária, em contraste com um grande número de expressões regionais nordestinas."
+		],
+		"resposta": "O estilo do livro é caracterizado, principalmente, pela oposição de duas variedades lingüísticas: linguagem culta, literária, em contraste com um grande número de expressões regionais nordestinas.",
+		"universidade":"fuvest",
+		"livro":"A Hora Da Estrela"
+	},
+	{
+		"questao":"A obra A hora da estrela, de Clarice Lispector marca-se pela depuração da arte de escrever e dialoga com todo o universo ficcional da autora. Despontam nela as perplexidades da narrativa moderna. Indique a alternativa que NãO condiz com esse romance entendido como um todo:",
+		"alternativas":[
+			"A história são as fracas aventuras de uma moça alagoana, “numa cidade toda feita contra ela”, o Rio de Janeiro.",
+			"Macabéa, personagem do romance, tem a coragem e o heroísmo dos fortes e se torna, na vida, a grande estrela com que sempre sonhou.",
+			"A estrela que dá título à obra é a estrela de cinema e só aparece mesmo na hora da morte.",
+			"A narrativa constrói-se da alternância entre as reflexões do narrador que parece narrar a si mesmo e os fatos apresentados que dão o retrato da protagonista.",
+			"O espaço da ação é o social-urbano, mas restrito à 'Rua do Acre para morar' e à 'Rua do Lavradio para trabalhar'."
+		],
+		"resposta": "Macabéa, personagem do romance, tem a coragem e o heroísmo dos fortes e se torna, na vida, a grande estrela com que sempre sonhou.",
+		"universidade":"PUC-SP",
+		"livro":"A Hora Da Estrela"
+	}
+]
