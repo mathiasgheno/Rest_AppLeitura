@@ -8,7 +8,7 @@ var objectId = require('mongodb').ObjectID;
 var winston = require('winston');
 var bb = require('express-busboy-custom');
 var fs = require('fs');
-var ejs = require('ejs');
+var porta = 7002;
 
 var logger = new (winston.Logger)({
     transports: [
@@ -23,11 +23,6 @@ var dadosLog ={
 
 logger.warn('Servidor Inicializado', dadosLog);
 
-bb.extend(app, {
-    upload: true,
-        path: '/uploads',
-        allowedPath: /./
-});
 
 app.use(bodyParser.urlencoded({extended:true}));
 //app.use(bodyParser.urlencoded());
@@ -36,7 +31,7 @@ app.set('view engine', 'ejs');
 
 app.use(bodyParser.json());
 
-// Livros
+// LIVROS
 
 //Pegar um livro pelo ID
 app.get('/livro/:id', function (req, res) {
@@ -110,14 +105,10 @@ app.delete('/livro/:id', function (req, res) {
     });
 });
 
-// Adicionar um livro no banco
+// Adicionar um livro no banco, Body Raw JSON!
 app.post('/livro', function (req, res) {
 
-    var meuLivro = {
-        'nome':'centauro no jardim',
-        'autor':'moacyr scliar',
-        'obrigatoria':'ufrgs'
-    };
+    var meuLivro = req.body;
 
     mongoClient.connect('mongodb://localhost:27017/app_livros', function (err, db) {
         if(err){
@@ -156,23 +147,79 @@ app.post('/livro', function (req, res) {
 
 });
 
-//Questões
+// Listagem de livros Por Universidade
+app.get('/livros/:universidade', function (req, res) {
+    mongoClient.connect('mongodb://localhost:27017/app_livros', function (err, db) {
+        if(err){
+            res.status(500).send('ocorreu um erro de conexão: ' + err);
+            winston.error('ocorreu um erro de conexão', {erro: err});
+        }
+        else{
+            db.collection('questao').aggregate([
+                {$match: {universidade: {'$regex' : '^' + req.params.universidade +'$', '$options' : 'i'} }},
+                {$group: {_id : "$livro", qtdd_Questoes: { $sum: 1 }}}
+            ]).toArray(function(err, docs) {
+
+                if(err){
+                    winston.error('ocorreu um erro de busca', {erro: err});
+                    res.status(500).send('erro de busca' + err);
+                }
+                if(docs.length == 0){
+                    winston.error('ocorreu um erro de busca', {erro: 'Nenhum resultado'});
+                    res.status(500).send('Erro de busca: ' + 'Nenhum resultado encontrado');
+                }
+                var arrayTest = new Array();
+
+                for(var i = 0; i< docs.length; i++){
+                    var numero = i;
+                    db.collection('livro').findOne({'titulo': {'$regex' : '^'+ docs[i]._id +'$', '$options' : 'i'} }, function (err, resultado) {
+                        if(resultado != null){
+                            docs[numero].idLivro = resultado._id;
+                            res.status(201).json(docs);
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
+
+
+//QUESTOES
+
+// Questões de um livro agrupado por universidade
+app.get('/questoes/livro/:livro', function (req, res) {
+    mongoClient.connect('mongodb://localhost:27017/app_livros', function (err, db) {
+        if(err){
+            winston.error('ocorreu um erro de conexão ', {erro:err});
+            res.status(500).send('ocorreu um erro de conexão: ' + err);
+        } else {
+
+            var query = [
+                {$match: {livro:{'$regex' : '^'+ req.params.livro +'$', '$options' : 'i'}}},
+                {$group: {_id : "$universidade", qtdd_Questoes: { $sum: 1 }, questoes: {$addToSet: {
+                    questao: "$questao",
+                    alternativas: "$alternativas",
+                    resposta: "$resposta"
+                }}}}
+            ];
+
+            db.collection('questao').aggregate(query).toArray(function (err, docs) {
+                if(err){
+                    winston.error('ocorreu um erro de busca: ', {erro:err});
+                    res.status(500).send('erro de busca' + err);
+                }
+                res.status(201).json(docs);
+            });
+        }
+    });
+});
 
 // Adicionar uma questao no banco
 app.post('/questao',function (req, res) {
    // res.send('está funcionando');
 
-    var questao = {
-        'questao':'Qual o nome do autor do livro O Centauro No Jardin',
-        'alternativas':[
-            'A) - ',
-            'B) - ',
-            'C) - ',
-            'D) - ',
-            'E) - '
-        ],
-        'resposta':'A'
-    };
+    var questao = req.body;
 
     mongoClient.connect('mongodb://localhost:27017/app_livros', function (err, db) {
         if(err){
@@ -278,39 +325,36 @@ app.delete('/questao/:id', function (req, res) {
     });
 });
 
-// testizinho
-app.post('/meupost', function (req, res) {
-    var valor = req.body.nome;
-    var arquivo = req.file;
-    console.log('objeto: ' + JSON.stringify(valor, 4));
-    console.log('arquivos: ' + JSON.stringify(arquivo,null, 4));
-
-    // fs.readFile(req.files.displayImage.path, function (err, data) {
-    //     // ...
-    //     var newPath = __dirname + "/uploads/uploadedFileName";
-    //     fs.writeFile(newPath, data, function (err) {
-    //         res.redirect("back");
-    //     });
-    // });
-
-    //console.log('nome ' + valor);
-    //res.status(201).send('Opaaa, vamos que vamos: ' + 'oiiii');
-    res.send('funcionou o/');
+// listagem de UNIVERSIDADES
+app.get('/universidades', function (req, res) {
+    mongoClient.connect('mongodb://localhost:27017/app_livros', function (err, db) {
+        if(err){
+            winston.error('ocorreu um erro de conexão ', {erro:err});
+            res.status(500).send('ocorreu um erro de conexão: ' + err);
+        } else {
+            db.collection('questao').aggregate([{
+                $group: {_id : "$universidade", qnt_questoes: { $sum: 1 }}
+            }]).toArray(function (err, docs) {
+                if(err){
+                    winston.error('ocorreu um erro de busca: ', {erro:err});
+                    res.status(500).send('erro de busca' + err);
+                }
+                res.status(201).json(docs);
+                console.log('dados da query: ' + docs);
+            });
+        }
+    });
 });
 
-// testizinho GET
-app.get('/meuget/:livro/:universidade', function (req, res) {
-   var livro = req.params.livro;
-   var universidade = req.params.universidade;
+// QUESTOES POR LIVRO E POR UNIVERSIDADE
 
-   res.send('livro: ' + livro + " Universidade " + universidade);
-});
+
 app.get('/', function (req, res) {
    res.render('../views/home.ejs');
 });
 
-app.listen(7001, function () {
-    console.log('servidor rodando na porta 7001');
+app.listen(porta, function () {
+    console.log('servidor rodando na porta ' + porta);
 });
 
 /*

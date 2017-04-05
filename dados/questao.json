@@ -37,5 +37,18 @@
 		"resposta": "Macabéa, personagem do romance, tem a coragem e o heroísmo dos fortes e se torna, na vida, a grande estrela com que sempre sonhou.",
 		"universidade":"PUC-SP",
 		"livro":"A Hora Da Estrela"
+	},
+	{
+		"questao":"A obra A hora da estrela, de Clarice Lispector marca-se pela depuração da arte de escrever e dialoga com todo o universo ficcional da autora. Despontam nela as perplexidades da narrativa moderna. Indique a alternativa que NãO condiz com esse romance entendido como um todo:",
+		"alternativas":[
+			"A história são as fracas aventuras de uma moça alagoana, “numa cidade toda feita contra ela”, o Rio de Janeiro.",
+			"Macabéa, personagem do romance, tem a coragem e o heroísmo dos fortes e se torna, na vida, a grande estrela com que sempre sonhou.",
+			"A estrela que dá título à obra é a estrela de cinema e só aparece mesmo na hora da morte.",
+			"A narrativa constrói-se da alternância entre as reflexões do narrador que parece narrar a si mesmo e os fatos apresentados que dão o retrato da protagonista.",
+			"O espaço da ação é o social-urbano, mas restrito à 'Rua do Acre para morar' e à 'Rua do Lavradio para trabalhar'."
+		],
+		"resposta": "Macabéa, personagem do romance, tem a coragem e o heroísmo dos fortes e se torna, na vida, a grande estrela com que sempre sonhou.",
+		"universidade":"fuvest",
+		"livro":"O Centauro No Jardim"
 	}
 ]
