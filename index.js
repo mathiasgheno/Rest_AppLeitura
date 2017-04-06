@@ -174,7 +174,7 @@ app.get('/livros/:universidade', function (req, res) {
                     var numero = i;
                     db.collection('livro').findOne({'titulo': {'$regex' : '^'+ docs[i]._id +'$', '$options' : 'i'} }, function (err, resultado) {
                         if(resultado != null){
-                            docs[numero].idLivro = resultado._id;
+                            docs[numero].livro = resultado;
                             res.status(201).json(docs);
                         }
                     });
