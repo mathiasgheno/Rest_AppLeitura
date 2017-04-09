@@ -127,12 +127,12 @@ app.post('/livro', function (req, res) {
                         dados_inseridos: meuLivro,
                         links: [
                             {
-                                href:'http://localhost:7001/livro/' + meuLivro._id,
+                                href:'http://localhost:'+ porta +'/livro/' + meuLivro._id,
                                 rel: 'DADOS',
                                 method: 'GET'
                             },
                             {
-                                href:'http://localhost:7001/livro/' + meuLivro._id,
+                                href:'http://localhost:'+ porta +'/livro/' + meuLivro._id,
                                 rel: 'EXCLUIR',
                                 method: 'DELETE'
                             }
@@ -238,12 +238,12 @@ app.post('/questao',function (req, res) {
                         dados_inseridos: questao,
                         links: [
                             {
-                                href:'http://localhost:7001/questao/' + questao._id,
+                                href:'http://localhost:'+ porta +'/questao/' + questao._id,
                                 rel: 'DADOS',
                                 method: 'GET'
                             },
                             {
-                                href:'http://localhost:7001/questao/' + questao._id,
+                                href:'http://localhost:'+ porta +'/questao/' + questao._id,
                                 rel: 'EXCLUIR',
                                 method: 'DELETE'
                             }
@@ -345,9 +345,6 @@ app.get('/universidades', function (req, res) {
         }
     });
 });
-
-// QUESTOES POR LIVRO E POR UNIVERSIDADE
-
 
 app.get('/', function (req, res) {
    res.render('../views/home.ejs');
